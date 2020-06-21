@@ -1,0 +1,19 @@
+.center{
+    width: 400px;
+    margin: 70px auto;
+}
+
+.header {
+    display: flex;
+    height: 50px;
+    background: blueviolet;
+    justify-content: flex-end;
+
+}
+
+.header p {
+    padding: 10px;
+    color: aliceblue;
+    font-weight: 700;
+    cursor: pointer;
+}
