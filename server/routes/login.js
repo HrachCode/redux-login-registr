@@ -9,7 +9,10 @@ login.post('/', async (req,res)=>{
         const { email,password } = req.body
 
     const data = await User.findAll({where:{email:email}, raw: true })
-    
+         if(!data[0]){
+           throw Error()
+         }
+          
         if(data[0].password === password){
             const {id,name,email} = data[0];
             const user = { id,name,email }
@@ -33,7 +36,7 @@ login.post('/', async (req,res)=>{
       
         res.json({message:'user logind'})
     }catch (error) {
-        console.log(error);
+      res.json({message:'user note faunded'})
         
     }
 })

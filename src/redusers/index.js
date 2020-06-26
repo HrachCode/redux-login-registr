@@ -1,15 +1,15 @@
 const initialstate = {
-    goods: false,
+    err: false,
     loader:false,
 }
 
 const reduser = (state = initialstate, action) => {
     switch (action.type) {
-        case 'GOODS_LOADED':
+        case 'ERROR':
         
             return {
                 ...state,
-                goods:action.payload
+                err:action.payload
             };
         case 'FETCHIN_DATA':
             

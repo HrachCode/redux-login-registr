@@ -8,8 +8,8 @@ export const loader  = (newGoods)=>{
     }
 }
 
-export const load = (newGoods) =>{
-  return { type: 'GOODS_LOADED', payload: newGoods }
+export const error = (err) =>{
+  return { type: 'ERROR', payload: err }
 }
 
 
@@ -18,7 +18,7 @@ export const fetchData = (fetch)=> async (dispatch)=>{
    try {
    
     const data = await axios.get(fetch);
-    dispatch(load(data.data))
+   
    
 
    } catch (error) {

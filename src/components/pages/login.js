@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchData, loader} from '../../actions/action'
+import {fetchData, error} from '../../actions/action'
 import {Button, Form} from 'react-bootstrap';
 import axios from 'axios'
 import './style.css'
@@ -10,13 +10,14 @@ class Login extends React.Component {
         email: '',
         password: ''
     }
-   
+    
     onchaing = (e) => {
 
         this.setState({
             [e.target.name]: e.target.value
         })
     }
+
     hendlSubmit = async(e) => {
         const { userload,profile } = this.props
         e.preventDefault()
@@ -24,6 +25,9 @@ class Login extends React.Component {
             const {email, password} = this.state
             const data = { email,password }
             const query = await axios.post('/login', data)
+            console.log(query.data.message);
+            
+            localStorage.setItem('refreshtoken',query.data.refresh)
             userload(query.data.user)
             if (query.data.user) {
 
@@ -32,14 +36,23 @@ class Login extends React.Component {
                    
 
         } catch (error) {
-            console.log(error);
-
+           if(error){
+               console.log(error);
+               
+            this.props.error(true)
+           }
+            
         }
     }
+    
+    
     render() {
-
+        
+        
+       
         return (
             <div className="center">
+                {this.props.err && <h1>error</h1> }
                 <Form onSubmit={this.hendlSubmit}>
                     <Form.Group controlId="formBasicEmail">
 
@@ -72,10 +85,10 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return {magazine: state.reduser, myloader: state.reduser.loader}
+    return {err: state.reduser.err, myloader: state.reduser.loader}
 }
 const mapDispatchToProps = {
-    loader,
+    error,
     fetchData
 }
 
