@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { fetchData,loader } from '../../actions/action'
+import { fetchData,loader,error } from '../../actions/action'
 import { Button,Form } from 'react-bootstrap';
 import axios from 'axios'
 import './style.css'
@@ -37,9 +37,11 @@ import './style.css'
       }
     }
     render() {
+    
      
         return (
             <div className =  "center">
+                {this.props.err && <h1>{this.props.err}</h1>}
                 <Form onSubmit = {this.hendlSubmit}>
                     <Form.Group controlId="formBasicEmail">
                      
@@ -73,12 +75,14 @@ import './style.css'
 const mapStateToProps = state => {
     return {
         magazine: state.reduser,
-        myloader:state.reduser.loader
+        myloader:state.reduser.loader,
+        err:state.reduser.err
     }
 }
 const mapDispatchToProps = {
     loader ,
-    fetchData
+    fetchData,
+    error
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register)

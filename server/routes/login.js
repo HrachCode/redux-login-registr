@@ -36,7 +36,7 @@ login.post('/', async (req,res)=>{
       
         res.json({message:'user logind'})
     }catch (error) {
-      res.json({message:'user note faunded'})
+      res.status(500).json({message:'user note faunded'})
         
     }
 })

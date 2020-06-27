@@ -25,8 +25,8 @@ class Login extends React.Component {
             const {email, password} = this.state
             const data = { email,password }
             const query = await axios.post('/login', data)
-            console.log(query.data.message);
-            
+           console.log(query.data);
+           
             localStorage.setItem('refreshtoken',query.data.refresh)
             userload(query.data.user)
             if (query.data.user) {
@@ -37,9 +37,8 @@ class Login extends React.Component {
 
         } catch (error) {
            if(error){
-               console.log(error);
                
-            this.props.error(true)
+            this.props.error('som error hapend')
            }
             
         }
@@ -47,12 +46,10 @@ class Login extends React.Component {
     
     
     render() {
-        
-        
-       
+
         return (
             <div className="center">
-                {this.props.err && <h1>error</h1> }
+                {this.props.err && <h1>{this.props.err}</h1> }
                 <Form onSubmit={this.hendlSubmit}>
                     <Form.Group controlId="formBasicEmail">
 
