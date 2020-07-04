@@ -23,10 +23,35 @@ app.use(express.urlencoded({
    })
    }
 
-
+  
 app.use('/registr', require('./routes/register'))
 app.use('/login', require('./routes/login'))
+app.use('/auth', require('./routes/auth'))
   
+
+function authenticateToken(req, res, next) {
+ try {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+console.log('olla');
+
+   
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+       if (err) {
+        return res.status(505).json({message:"jwt note valid"})
+       }
+      req.user = user
+      })
+    next()
+  
+ } catch (error) {
+   console.log('jwt note valid');
+   
+   
+ } 
+ 
+}
+
 
 app.use((req,res,next)=>{
   const error = new Error('Note Found');

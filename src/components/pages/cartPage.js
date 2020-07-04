@@ -20,16 +20,21 @@ import './style.css'
     hendlSubmit = async(e)=>{
         e.preventDefault()
       try {
+          this.props.loader(true)
         const { name, email, password } = this.state
         const data = {
             name,
             email,
             password
         }
-      const query = await axios.post('/registr',data)
-      console.log(query);
       
-      this.props.visibility('')
+        
+      const query = await axios.post('/registr',data)
+        if(query.status === 500){
+            this.props.loader(false)
+          return  this.props.error('name is requaired')
+        }
+        this.props.loader(false)
       
       } catch (error) {
           console.log(error);
@@ -37,7 +42,11 @@ import './style.css'
       }
     }
     render() {
-    
+        console.log(this.props.myloader);
+        
+     if (this.props.myloader) {
+         return <h1>...Loader</h1>
+     };
      
         return (
             <div className =  "center">

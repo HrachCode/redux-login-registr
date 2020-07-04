@@ -18,7 +18,7 @@ const User = require('./user')
     },
     userId: {
       type: Sequelize.DataTypes.INTEGER,
-      defaultValue: 1,
+      allowNull: false
     },
    
     

@@ -19,18 +19,9 @@ const reduser = (state = initialstate, action) => {
             goods:action.payload
             };
         case 'LOADED':
-            console.log(action.payload);
-          if (action.payload === 'start' ) {
-            
-              
-              return {
-                  ...state,loader:true
-              }
-          } else {
             return {
-                ...state,loader:false
+                ...state,loader:action.payload
             }
-          }
           
         default:
             return state

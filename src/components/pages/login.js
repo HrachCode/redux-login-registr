@@ -6,7 +6,6 @@ import axios from 'axios'
 import './style.css'
 class Login extends React.Component {
     state = {
-
         email: '',
         password: ''
     }
@@ -25,20 +24,21 @@ class Login extends React.Component {
             const {email, password} = this.state
             const data = { email,password }
             const query = await axios.post('/login', data)
-           console.log(query.data);
-           
-            localStorage.setItem('refreshtoken',query.data.refresh)
+            localStorage.setItem('refreshtoken',query.data.refreshToken)
+            localStorage.setItem('accssesToken',query.data.accessToken)
+            console.log(query.data.refreshToken);
+            
             userload(query.data.user)
+            console.log(query.data.user);
+            
             if (query.data.user) {
 
                profile('/profile')
         }
-                   
-
         } catch (error) {
            if(error){
                
-            this.props.error('som error hapend')
+            this.props.error(error.message)
            }
             
         }
